@@ -1,0 +1,135 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <title>EyesTalk</title>
+    <meta charset="utf-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <link rel="stylesheet" href="styles.css">
+    <script src="https://www.gstatic.com/firebasejs/8.3.1/firebase-app.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/8.3.1/firebase-auth.js"></script>
+    <script src="main.js"></script>
+    <script src="keyboard.js"></script>
+    <script src="firebase.js"></script>
+    <script src="https://api.gazerecorder.com/GazeCloudAPI.js"></script>
+
+
+</head>
+
+<body style="background-color: black;">
+    <center>
+        <!-- Gaze Circle-->
+        <div id="gaze"
+            style="position: absolute; display:none; opacity: 0.8; width: 80px; height: 80px; background-image: url('gaze.png'); border-radius: 50%; border: solid 5px white; pointer-events: none;  z-index: 999999;">
+
+            <h1 class="circle-txt">
+                <div><span id="txt">0</span></div>
+            </h1>
+        </div>
+
+        <!--Profile Section-->
+        <div class="profile" id="profile" style="display: none;">
+            <div style="color: white; font-weight: bold;">Account</div>
+            <p style="font-size: 13px; color: white;">Hi, </span></p>
+            <p style="font-size: 13px; color: green;"><span id="emailtxt"></span></p>
+            <p style="font-size: 13px; color: green;"><span id="emailend"></span></p>
+            <button class="logoutbut" onclick="logout()" id="logout">Log Out</button>
+        </div>
+
+        <!-- Login Page -->
+        <div class="login" id="login" style="display:block;">
+
+            <img src="mainlogo.png" alt="" style="height: 20%; width: 20%;">
+            <h1 style="color: white; font-size: 3vw;">Login</h1>
+            <div class="form-container">
+                <div>
+                    <input class="inpbox" type="email" placeholder="Email" id="email">
+                </div>
+                <div>
+                    <input class="inpbox" type="password" placeholder="Password" id="password">
+                </div>
+                <button class="but5" onclick="signin()"> Sign In</button>
+                <p style="cursor: pointer; color: white;">Do not have an account ? <a onclick="loginToSignup()"> Sign
+                        Up</a></p>
+
+            </div>
+        </div>
+
+        <!-- Sign Up Page -->
+        <div class="signup" id="signup">
+            <img src="mainlogo.png" alt="" style="height: 20%; width: 20%;">
+            <h1 style="color:white; font-size: 3vw;">Sign Up</h1>
+            <div class="form-container">
+                <div>
+                    <input class="inpbox" type="email" placeholder="Email" id="semail">
+                </div>
+                <div>
+                    <input class="inpbox" type="password" placeholder="Password" id="spassword">
+                </div>
+                <div>
+                    <input class="inpbox" type="password" placeholder="Confirm Password" id="confpassword">
+                </div>
+
+                <button class="but5" onclick="signup()"> Sign Up</button>
+                <p style="cursor: pointer; color: white;">Already have an account ? <a onclick="signupToLogin()">
+                        Login</a></p>
+
+            </div>
+        </div>
+
+        <!-- Calibration Window-->
+        <div class="calibration" id="calibration" style="display: none;">
+            <img src="mainlogo.png" alt="" style="height: 20%; width: 20%;">
+            <h1 style="color: white; font-size: 3vh; font-weight: bolder;">Calibration</h1>
+            <div class="cordinate-container">
+                <button class="but1" type="button" onclick="start()">Start</button>
+                <button class="but1" type="button" onclick="end()">End</button>
+
+                <p>State: <span id="state"></span></p>
+                <p>Cord X: <span id="docX"></span></p>
+                <p>Cord Y: <span id="docY"></span></p>
+                <p>Timestamp: <span id="time"></span></p>
+            </div>
+            <button class="but4" id="rect" onclick="calibToMain()">
+                Hover here for 3 sec to go to Next Page
+            </button>
+
+        </div>
+
+        <!-- Main Page-->
+        <div class="main" id="main">
+            <img src="mainlogo.png" alt="" style="height: 20%; width: 20%;">
+            <h1 style="color: white; font-size: 3vh;">Main Page</h1>
+            <div class="">
+                <button class="but2" id="board" onclick="mainToKeyboard()">GazeBoard</button>
+                <button class="but2" id="message" onclick="mainToMessage()">Messages</button>
+
+                <button class="but2" id="back" onclick="mainToCalib()">Back</button>
+            </div>
+        </div>
+
+        <!-- Keyboard Main -->
+        <div class="keyboard" id="keyboard" style="display: none;">
+            <input type="button" value="Back" id="boardtomain" onclick="keyboardToMain()" class="but6"></input>
+
+            <img src="mainlogo.png" alt="" style="height: 20%; width: 20%; margin-left: 1.5%; margin-top: -10%;">
+            <h1 style="color: white; font-size: 3vh;">GazeBoard</h1>
+            <div class="keyboard-container">
+
+                <input type="button" value="Alphabets" id="myButton1" onclick="myFunction1()" class="but3"></input>
+                <input type="button" value="Numbers/Symbols" id="myButton2" onclick="myFunction1()"
+                    class="but3"></input>
+                <input type="button" value="Space" id="myButton3" onclick="space()" class="but3"></input>
+                <input class="display" id="display1" value="">
+
+                <input type="button" value="Speak" id="myButton4" onclick="myFunction1()" class="but3"></input>
+                <input type="button" value="Emojis" id="myButton5" onclick="myFunction1()" class="but3"></input>
+                <input type="button" value="Backspace" id="myButton6" onclick="backspace()" class="but3"></input>
+
+            </div>
+        </div>
+
+</body>
+
+</html>

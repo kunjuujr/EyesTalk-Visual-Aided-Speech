@@ -1,0 +1,21 @@
+<html>
+<div>
+    <button onclick="myFunction()"> Test Me Out</button>
+</div>
+
+</html>
+
+<script>
+    function myFunction() {
+        var msg = new SpeechSynthesisUtterance();
+        var voices = window.speechSynthesis.getVoices();
+        msg.voice = voices[4]
+        msg.text = "hey who are you ? two four"
+        msg.rate = 0.5;
+        window.speechSynthesis.speak(msg);
+
+        speechSynthesis.getVoices().forEach(function (voice) {
+            console.log(voice.name, voice.default ? voice.default : '');
+        });
+    }
+</script>
